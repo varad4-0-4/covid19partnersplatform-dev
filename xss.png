@@ -1,3 +1,0 @@
-<script>
-  alert('XSS in Profile Picture!');
-</script>
